@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Create EB application
+          name: Create SG Group
           no_output_timeout: 45m
           command: './scripts/deploy_onecms_core.sh'
   deploy_env:
@@ -22,14 +22,14 @@ jobs:
           name: Create EB environment
           no_output_timeout: 45m
           command: './scripts/deploy_onecms_core.sh'
-      - run:
-          name: Create API Gateway
-          no_output_timeout: 15m
-          command: './scripts/deploy_onecms_api.sh'
-      - run:
-          name: Create Infra Tools (ECS) Resources
-          no_output_timeout: 15m
-          command: './scripts/deploy_onecms_tools.sh'
+#      - run:
+#          name: Create API Gateway
+#          no_output_timeout: 15m
+#          command: './scripts/deploy_onecms_api.sh'
+#      - run:
+#          name: Create Infra Tools (ECS) Resources
+#          no_output_timeout: 15m
+#          command: './scripts/deploy_onecms_tools.sh'
 
 workflows:
   version: 2
