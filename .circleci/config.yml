@@ -15,11 +15,11 @@ jobs:
       - image: meredithdigops/digops-stacks:0.14.0
     steps:
       - checkout
+      # - run:
+          # name: CloudFormation Lint
+          # command: './scripts/lint.sh'
       - run:
-          name: CloudFormation Lint
-          command: './scripts/lint.sh'
-      - run:
-          name: Create EB environment
+          name: Create SG environment
           no_output_timeout: 45m
           command: './scripts/deploy_onecms_core.sh'
 #      - run:
