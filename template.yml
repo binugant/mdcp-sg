@@ -1,0 +1,560 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Public and Private SecurityGroups
+Parameters:
+  VpcId:
+    Description: Select the  VPC
+    Type: 'AWS::EC2::VPC::Id'
+    ConstraintDescription: must be a valid VpcId.
+    Default: vpc-f2acb78b
+  PublicSGName1:
+    Description: Public Security Group Name
+    Type: String
+    Default: prod-mdcpaaa-public-sg 
+  PrivateSGName1:
+    Description: Private Security Group Name
+    Type: String
+    Default: prod-mdcpaaa-private-sg
+  PublicSGName2:
+    Description: Public Security Group Name
+    Type: String
+    Default: qa-mdcpaaa-public-sg 
+  PrivateSGName2:
+    Description: Private Security Group Name
+    Type: String
+    Default: qa-mdcpaaa-private-sg  
+
+Resources:
+#Prod Security Group resources
+  publicsg1:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Public Security Group
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: !Ref PublicSGName1
+  privatesg1:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Private Security Group
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: !Ref PrivateSGName1
+  #QA Security Group resources        
+  publicsg2:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Public Security Group
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: !Ref PublicSGName2
+  privatesg2:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Private Security Group
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: !Ref PrivateSGName2   
+  #Prod Security group Inbound Rules             
+  ingress01:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: tcp
+      FromPort: '3389'
+      ToPort: '3389'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-3389
+  ingress02:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: tcp
+      FromPort: '22'
+      ToPort: '22'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-22
+  ingress03:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 0.0.0.0/0
+  ingress04:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: '-1'
+      CidrIp: 10.0.0.0/8
+  ingress05:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 0.0.0.0/0
+  ingress06:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg1
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      SourceSecurityGroupId: !Ref publicsg1
+      
+  ingress07:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg1
+      IpProtocol: '-1'
+      CidrIp: 10.0.0.0/8
+  ingress08:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg1
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      SourceSecurityGroupId: !Ref publicsg1
+ #Prod Security group Outbound Rules     
+  egress01:
+    Type: 'AWS::EC2::SecurityGroupEgress'
+    Properties:
+      GroupId: !Ref publicsg1
+      IpProtocol: '-1'
+      CidrIp: 0.0.0.0/0
+  egress02:
+    Type: 'AWS::EC2::SecurityGroupEgress'
+    Properties:
+      GroupId: !Ref privatesg1
+      IpProtocol: '-1'
+      CidrIp: 0.0.0.0/0
+
+# QA Security group Inbound Rules  
+  ingress11:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '3389'
+      ToPort: '3389'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-3389
+  ingress12:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '22'
+      ToPort: '22'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-22
+  ingress13:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-80
+  ingress14:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 192.223.7.254/32
+      Description: DSM-80
+  ingress15:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 209.251.208.240/28
+      Description: NYC-80
+  ingress16:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: '-1'
+      CidrIp: 10.0.0.0/8
+  ingress17:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 97.65.109.131/32
+      Description: Seattle-443
+  ingress18:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 192.223.7.254/32
+      Description: DSM-443
+  ingress19:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 209.251.208.240/28
+      Description: NYC-443
+  ingress20:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      SourceSecurityGroupId: !Ref publicsg2
+      
+  ingress21:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg2
+      IpProtocol: '-1'
+      CidrIp: 10.0.0.0/8
+  ingress22:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref privatesg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      SourceSecurityGroupId: !Ref publicsg2
+  ingress23:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.202.232.213/32 
+      Description: edev-travel-natip-80
+  ingress24:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.199.111.92/32 
+      Description: edev-lifestyle-natip-80
+  ingress25:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.201.240.243/32
+      Description: edev-entertainment-natip-80
+  ingress26:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 18.211.222.105/32 
+      Description: edev-el1-natip-80
+  ingress27:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.202.232.129/32  
+      Description: edev-news-natip-80
+  ingress28:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 54.85.232.141/32
+      Description: marthastewart-ec2-dev-80
+  ingress29:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 54.208.33.26/32   
+      Description: Martha-VPC-Nat-80
+  ingress30:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 35.170.181.72/32   
+      Description: Martha-QA2-UGC-80
+  ingress31:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.233.30.59/32   
+      Description: aws-ar-east-nat1-80
+  ingress32:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 52.202.212.20/32   
+      Description: aws-ar-east-nat2-80
+  ingress33:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.234.155.230/32   
+      Description: aws-ar-east-nat3-80
+  ingress34:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.237.10.81/32   
+      Description: aws-ar-east-nat4-80
+  ingress35:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.201.255.225/32   
+      Description: el1-test-80
+  ingress36:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 3.93.94.170/32   
+      Description: lifestyle-test-80
+  ingress37:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.206.170.22/32   
+      Description: travel-test-80
+  ingress38:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 34.197.60.34/32   
+      Description: entertainment-test-80
+  ingress39:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.202.232.213/32 
+      Description: edev-travel-natip-443
+  ingress40:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.199.111.92/32 
+      Description: edev-lifestyle-natip-443
+  ingress41:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.201.240.243/32
+      Description: edev-entertainment-natip-443
+  ingress42:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 18.211.222.105/32 
+      Description: edev-el1-natip-443
+  ingress43:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.202.232.129/32  
+      Description: edev-news-natip-443
+  ingress44:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 54.85.232.141/32
+      Description: marthastewart-ec2-dev-443
+  ingress45:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 54.208.33.26/32   
+      Description: Martha-VPC-Nat-443
+  ingress46:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 35.170.181.72/32   
+      Description: Martha-QA2-UGC-443
+  ingress47:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.233.30.59/32   
+      Description: aws-ar-east-nat1-443
+  ingress48:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 52.202.212.20/32   
+      Description: aws-ar-east-nat2-443
+  ingress49:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.234.155.230/32   
+      Description: aws-ar-east-nat3-443
+  ingress50:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.237.10.81/32   
+      Description: aws-ar-east-nat4-443
+  ingress51:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.201.255.225/32   
+      Description: el1-test-443
+  ingress52:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 3.93.94.170/32   
+      Description: lifestyle-test-443
+  ingress53:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.206.170.22/32   
+      Description: travel-test-443
+  ingress54:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 34.197.60.34/32   
+      Description: entertainment-test-443 
+  ingress55:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 38.108.195.58/32   
+      Description: NYC VPN-80
+  ingress56:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 38.108.195.58/32   
+      Description: NYC-VPN-443       
+  # QA Security group Outbound Rules    
+  egress6:
+    Type: 'AWS::EC2::SecurityGroupEgress'
+    Properties:
+      GroupId: !Ref publicsg2
+      IpProtocol: '-1'
+      CidrIp: 0.0.0.0/0
+  egress7:
+    Type: 'AWS::EC2::SecurityGroupEgress'
+    Properties:
+      GroupId: !Ref privatesg2
+      IpProtocol: '-1'
+      CidrIp: 0.0.0.0/0
