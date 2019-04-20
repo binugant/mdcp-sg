@@ -9,19 +9,19 @@ jobs:
       - run:
           name: Create SG Group
           no_output_timeout: 45m
-          command: './scripts/deploy_onecms_core.sh'
+          command: './scripts/deploy_sg.sh'
   deploy_env:
     docker:
       - image: meredithdigops/digops-stacks:0.14.0
     steps:
       - checkout
-      # - run:
-          # name: CloudFormation Lint
-          # command: './scripts/lint.sh'
+      - run:
+          name: CloudFormation Lint
+          command: './scripts/lint.sh'
       - run:
           name: Create SG environment
           no_output_timeout: 45m
-          command: './scripts/deploy_onecms_core.sh'
+          command: './scripts/deploy_sg.sh'
 #      - run:
 #          name: Create API Gateway
 #          no_output_timeout: 15m
@@ -42,4 +42,4 @@ workflows:
       - deploy_env:
           filters:
             branches:
-              only: /environment\/.*/
+              ignore: /.*/

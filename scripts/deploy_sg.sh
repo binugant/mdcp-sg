@@ -7,9 +7,9 @@ fi
 
 ENV=environment/$1
 REGION=us-east-1
-STACK_NAME=onecms-wordpress-cfn
-TEMPLATE=cfn/onecms.yml
-CUSTOMER=onecms
+STACK_NAME=onesg-aws034876-cfn
+TEMPLATE=cfn/template.yml
+CUSTOMER=mdcp
 PURPOSE=hosting
 
 cfn-lint --ignore-checks W2001 W8001 -t $TEMPLATE

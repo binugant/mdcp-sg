@@ -1,0 +1,14 @@
+Environment: test
+DBUser: onecms_wp_test
+DefaultDomain: test.onecms.io
+S3OffloadDomain: test-static.onecms.io
+HealthCheckPath: /wp-json/
+ContentRouterEndpoint: https://test.contentrouter.meredith.services/
+ContentGraphEndpoint: https://udf-cms-provider.meredithcorp.io/v1/unified-data-format-cms-provider-test
+RecipeCMSAPIEndpoint: https://integration.recipecms-ingestor.meredith.services/webhook
+BeanstalkInstanceType: c5.2xlarge
+BeanstalkASGMaxSize: 10
+ElasticsearchInstanceType: t2.small.elasticsearch
+ElasticCacheInstanceType: cache.m4.large
+RDSInstanceType: db.r5.2xlarge
+RDSBlogInstanceType: db.r5.2xlarge
