@@ -6,7 +6,7 @@ Parameters:
     Description: Select the  VPC
     Type: 'AWS::EC2::VPC::Id'
     ConstraintDescription: must be a valid VpcId.
-    Default: vpc-f2acb78b
+    Default: vpc-0afb50cec0eafbac4
   PublicSGName1:
     Description: Public Security Group Name
     Type: String
