@@ -38,10 +38,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - deploy_base:
-          filters:
-            branches:
-              only: master
+      # - deploy_base:
+          # filters:
+            # branches:
+              # only: master
       - deploy_env:
           filters:
             branches:
