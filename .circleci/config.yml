@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Create SG Group
           no_output_timeout: 45m
-          command: './project/scripts/deploy_sg.sh'
+          command: 'sh ./project/scripts/deploy_sg.sh'
   deploy_env:
     docker:
       - image: meredithdigops/digops-stacks:0.14.0
@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Create SG environment
           no_output_timeout: 45m
-          command: './project/scripts/deploy_sg.sh'
+          command: 'sh ./project/scripts/deploy_sg.sh'
 #      - run:
 #          name: Create API Gateway
 #          no_output_timeout: 15m

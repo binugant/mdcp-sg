@@ -15,7 +15,7 @@ fi
 # cfn-lint --ignore-checks W2001 W8001 -t $TEMPLATE
 # yamllint -d "{extends: relaxed, rules: {line-length: {max: 150}}}" $TEMPLATE
 
-aws cloudformation deploy --template-file ./cfn/template.yml --stack-name test-stack-abc98383838 --region us-east-1 
+aws cloudformation deploy --template-file ./cfn/template.yml --stack-name test-stack-abc98383838 --region us-east-1 --environment prod --region us-east-1
 # docker-compose run digops-stacks digops-stacks change-set $STACK_NAME $TEMPLATE \
 	       # --environment $ENV \
 	       # --region $REGION \
