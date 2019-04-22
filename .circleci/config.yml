@@ -19,9 +19,12 @@ jobs:
           name: CloudFormation Lint
           command: './scripts/lint.sh'
       - run:
+          name: Change Directory
+          command: 'cd /project/scripts'    
+      - run:
           name: Create SG environment
           no_output_timeout: 45m
-          command: 'sh ./project/scripts/deploy_sg.sh'
+          command: 'sh deploy_sg.sh'
 #      - run:
 #          name: Create API Gateway
 #          no_output_timeout: 15m
