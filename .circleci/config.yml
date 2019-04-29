@@ -6,13 +6,13 @@ jobs:
       - image: meredithdigops/digops-stacks:0.14.0
     steps:
       - checkout
-      - run:
-          name: Change Directory
-          command: 'cd /project/scripts'
+      #- run:
+      #    name: Change Directory
+      #    command: 'cd /project/scripts'
       - run:
           name: Create SG Group
           no_output_timeout: 45m
-          command: 'sh deploy_sg.sh'
+          command: './scripts/deploy_sg.sh'
   # deploy_env:
     # docker:
       # - image: meredithdigops/digops-stacks:0.14.0
@@ -41,6 +41,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - deploy_base:
+      - deploy_base
       
           
