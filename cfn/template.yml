@@ -42,7 +42,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref PrivateSGName1
-  #QA Security Group resources      
+  #QA Security Group resources
   publicsg2:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -58,8 +58,8 @@ Resources:
       VpcId: !Ref VpcId
       Tags:
         - Key: Name
-          Value: !Ref PrivateSGName2 
-  #Prod Security group Inbound Rules           
+          Value: !Ref PrivateSGName2
+  #Prod Security group Inbound Rules      
   ingress01:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
@@ -111,7 +111,7 @@ Resources:
       ToPort: 22
       CidrIp: 97.65.109.131/32
       Description: Seattle-22
-    # QA Security group Outbound Rules  
+    # QA Security group Outbound Rules
   egress6:
     Type: 'AWS::EC2::SecurityGroupEgress'
     Properties:
