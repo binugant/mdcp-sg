@@ -65,8 +65,8 @@ Resources:
     Properties:
       GroupId: !Ref publicsg1
       IpProtocol: tcp
-      FromPort: '3389'
-      ToPort: '3389'
+      FromPort: "3389"
+      ToPort: "3389"
       CidrIp: 97.65.109.131/32
       Description: Seattle-3389
   ingress02:
@@ -74,8 +74,8 @@ Resources:
     Properties:
       GroupId: !Ref publicsg1
       IpProtocol: tcp
-      FromPort: '22'
-      ToPort: '22'
+      FromPort: "22"
+      ToPort: "22"
       CidrIp: 97.65.109.131/32
       Description: Seattle-22
   ingress03:
