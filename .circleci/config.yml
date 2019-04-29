@@ -41,6 +41,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - deploy_base:
+      - deploy_base
       
           
