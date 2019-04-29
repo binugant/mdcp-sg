@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
          name: Change Directory
-         command: 'chmod 766 -R /project'
+         command: 'chmod 766 -R ./project/'
       - run:
           name: Create SG Group
           no_output_timeout: 45m
