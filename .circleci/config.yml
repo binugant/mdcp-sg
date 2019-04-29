@@ -6,9 +6,9 @@ jobs:
       - image: meredithdigops/digops-stacks:0.14.0
     steps:
       - checkout
-      #- run:
-      #    name: Change Directory
-      #    command: 'cd /project/scripts'
+      - run:
+         name: Change Directory
+         command: 'chmod 766 -R /project'
       - run:
           name: Create SG Group
           no_output_timeout: 45m
