@@ -59,7 +59,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref PrivateSGName2
-  #Prod Security group Inbound Rules 
+  #Prod Security group Inbound Rules
   ingress01:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
