@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Create SG Group
           no_output_timeout: 45m
-          command: 'sh deploy_sg.sh'
+          command: './scripts/deploy_sg.sh'
   # deploy_env:
     # docker:
       # - image: meredithdigops/digops-stacks:0.14.0
