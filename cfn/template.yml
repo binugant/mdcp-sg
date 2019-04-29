@@ -99,8 +99,8 @@ Resources:
     Properties:
       GroupId: !Ref publicsg2
       IpProtocol: tcp
-      FromPort: '3389'
-      ToPort: '3389'
+      FromPort: 3389
+      ToPort: 3389
       CidrIp: 97.65.109.131/32
       Description: Seattle-3389
   ingress12:
@@ -108,8 +108,8 @@ Resources:
     Properties:
       GroupId: !Ref publicsg2
       IpProtocol: tcp
-      FromPort: '22'
-      ToPort: '22'
+      FromPort: 22
+      ToPort: 22
       CidrIp: 97.65.109.131/32
       Description: Seattle-22
     # QA Security group Outbound Rules    
