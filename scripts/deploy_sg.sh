@@ -19,8 +19,8 @@ fi
 REGION=us-east-1
 STACK_NAME=parenting-wordpress
 BASE_STACK_NAME="${STACK_NAME}-Base"
-TEMPLATE=cfn/environment.yml
-BASE_TEMPLATE=cfn/base.yml
+TEMPLATE=cfn/template.yml
+BASE_TEMPLATE=cfn/template.yml
 CUSTOMER=corecms
 PURPOSE=hosting
 NESTED_STACK_VERSION='version/13.9.4'
