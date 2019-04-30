@@ -3,7 +3,7 @@ version: 2
 jobs:
   deploy_base:
     docker:
-      - image: meredithdigops/digops-stacks:0.14.0
+      - image: meredithdigops/digops-stacks:latest
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
           command: './scripts/deploy_sg.sh'
   # deploy_env:
     # docker:
-      # - image: meredithdigops/digops-stacks:0.14.0
+      # - image: meredithdigops/digops-stacks:latest
     # steps:
       # - checkout
       # - run:
