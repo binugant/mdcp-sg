@@ -15,17 +15,17 @@ Parameters:
     Description: Private Security Group Name
     Type: String
     #Default: prod-mdcpaaa-private-sg
-  PublicSGName2:
-    Description: Public Security Group Name
-    Type: String
-    #Default: qa-mdcpaaa-public-sg
-  PrivateSGName2:
-    Description: Private Security Group Name
-    Type: String
-    #Default: qa-mdcpaaa-private-sg
+  # PublicSGName2:
+    # Description: Public Security Group Name
+    # Type: String
+    # #Default: qa-mdcpaaa-public-sg
+  # PrivateSGName2:
+    # Description: Private Security Group Name
+    # Type: String
+    # #Default: qa-mdcpaaa-private-sg
 
 Resources:
-#Prod Security Group resources
+#Security Group resources
   publicsg1:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -42,24 +42,24 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref PrivateSGName1
-  #QA Security Group resources
-  publicsg2:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: Public Security Group
-      VpcId: !Ref VpcId
-      Tags:
-        - Key: Name
-          Value: !Ref PublicSGName2
-  privatesg2:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: Private Security Group
-      VpcId: !Ref VpcId
-      Tags:
-        - Key: Name
-          Value: !Ref PrivateSGName2
-  #Prod Security group Inbound Rules
+  # #QA Security Group resources
+  # publicsg2:
+    # Type: 'AWS::EC2::SecurityGroup'
+    # Properties:
+      # GroupDescription: Public Security Group
+      # VpcId: !Ref VpcId
+      # Tags:
+        # - Key: Name
+          # Value: !Ref PublicSGName2
+  # privatesg2:
+    # Type: 'AWS::EC2::SecurityGroup'
+    # Properties:
+      # GroupDescription: Private Security Group
+      # VpcId: !Ref VpcId
+      # Tags:
+        # - Key: Name
+          # Value: !Ref PrivateSGName2
+  #Security group Inbound Rules
   ingress01:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
@@ -78,7 +78,7 @@ Resources:
       ToPort: 22
       CidrIp: 97.65.109.131/32
       Description: Seattle-22
- #Prod Security group Outbound Rules
+ #Security group Outbound Rules
   egress01:
     Type: 'AWS::EC2::SecurityGroupEgress'
     Properties:
@@ -93,34 +93,34 @@ Resources:
       CidrIp: 0.0.0.0/0
 
 # QA Security group Inbound Rules
-  ingress11:
-    Type: 'AWS::EC2::SecurityGroupIngress'
-    Properties:
-      GroupId: !Ref publicsg2
-      IpProtocol: tcp
-      FromPort: 3389
-      ToPort: 3389
-      CidrIp: 97.65.109.131/32
-      Description: Seattle-3389
-  ingress12:
-    Type: 'AWS::EC2::SecurityGroupIngress'
-    Properties:
-      GroupId: !Ref publicsg2
-      IpProtocol: tcp
-      FromPort: 22
-      ToPort: 22
-      CidrIp: 97.65.109.131/32
-      Description: Seattle-22
-    # QA Security group Outbound Rules
-  egress6:
-    Type: 'AWS::EC2::SecurityGroupEgress'
-    Properties:
-      GroupId: !Ref publicsg2
-      IpProtocol: '-1'
-      CidrIp: 0.0.0.0/0
-  egress7:
-    Type: 'AWS::EC2::SecurityGroupEgress'
-    Properties:
-      GroupId: !Ref privatesg2
-      IpProtocol: '-1'
-      CidrIp: 0.0.0.0/0
+  # ingress11:
+    # Type: 'AWS::EC2::SecurityGroupIngress'
+    # Properties:
+      # GroupId: !Ref publicsg2
+      # IpProtocol: tcp
+      # FromPort: 3389
+      # ToPort: 3389
+      # CidrIp: 97.65.109.131/32
+      # Description: Seattle-3389
+  # ingress12:
+    # Type: 'AWS::EC2::SecurityGroupIngress'
+    # Properties:
+      # GroupId: !Ref publicsg2
+      # IpProtocol: tcp
+      # FromPort: 22
+      # ToPort: 22
+      # CidrIp: 97.65.109.131/32
+      # Description: Seattle-22
+    # # QA Security group Outbound Rules
+  # egress6:
+    # Type: 'AWS::EC2::SecurityGroupEgress'
+    # Properties:
+      # GroupId: !Ref publicsg2
+      # IpProtocol: '-1'
+      # CidrIp: 0.0.0.0/0
+  # egress7:
+    # Type: 'AWS::EC2::SecurityGroupEgress'
+    # Properties:
+      # GroupId: !Ref privatesg2
+      # IpProtocol: '-1'
+      # CidrIp: 0.0.0.0/0
