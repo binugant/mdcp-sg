@@ -1,4 +1,4 @@
-Environment: test
+Environment: prod
 # DBUser: onecms_wp_test
 # DefaultDomain: test.onecms.io
 # S3OffloadDomain: test-static.onecms.io
