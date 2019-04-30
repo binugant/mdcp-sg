@@ -6,23 +6,23 @@ Parameters:
     Description: Select the  VPC
     Type: 'AWS::EC2::VPC::Id'
     ConstraintDescription: must be a valid VpcId.
-    Default: vpc-0afb50cec0eafbac4
+    #Default: vpc-0afb50cec0eafbac4
   PublicSGName1:
     Description: Public Security Group Name
     Type: String
-    Default: prod-mdcpaaa-public-sg
+    #Default: prod-mdcpaaa-public-sg
   PrivateSGName1:
     Description: Private Security Group Name
     Type: String
-    Default: prod-mdcpaaa-private-sg
+    #Default: prod-mdcpaaa-private-sg
   PublicSGName2:
     Description: Public Security Group Name
     Type: String
-    Default: qa-mdcpaaa-public-sg
+    #Default: qa-mdcpaaa-public-sg
   PrivateSGName2:
     Description: Private Security Group Name
     Type: String
-    Default: qa-mdcpaaa-private-sg
+    #Default: qa-mdcpaaa-private-sg
 
 Resources:
 #Prod Security Group resources
@@ -98,8 +98,8 @@ Resources:
     Properties:
       GroupId: !Ref publicsg2
       IpProtocol: tcp
-      FromPort: 443
-      ToPort: 443
+      FromPort: 3389
+      ToPort: 3389
       CidrIp: 97.65.109.131/32
       Description: Seattle-3389
   ingress12:
