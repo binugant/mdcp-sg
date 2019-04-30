@@ -56,7 +56,7 @@ workflows:
      - deploy_sg_test:
           filters:
             branches:
-              only: test
+              only: /environment\/.*/
      - deploy_sg_prod:
            requires:
             - deploy_sg_test
