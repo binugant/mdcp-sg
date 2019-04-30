@@ -70,12 +70,12 @@ if [[ $CIRCLE_BRANCH == "test" ]]; then
 	yamllint -d "{extends: relaxed, rules: {line-length: {max: 150}}}" $TEMPLATE
 
 	$DOCKER_CMD_PREFIX digops-stacks change-set $STACK_NAME $TEMPLATE \
-      		--environment $env \
+      		--environment test \
       		--region $REGION \
       		--customer $CUSTOMER \
       		--purpose $PURPOSE
 	$DOCKER_CMD_PREFIX digops-stacks execute $STACK_NAME \
-      		--environment $env \
+      		--environment test \
       		--region $REGION
    exit 0		
  fi
