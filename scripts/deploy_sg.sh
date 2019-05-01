@@ -56,7 +56,7 @@ fi
 regex="^environment\/([0-9a-z]*)"
 if [[ $CIRCLE_BRANCH =~ $regex ]]; then
     env="${BASH_REMATCH[1]}"
-    echo "Will attempt sg $env environment deployment."
+    echo "Will attempt beanstalk $env environment deployment."
 else
     echo "Failed regex match '$regex'. Exiting."
     exit 1
