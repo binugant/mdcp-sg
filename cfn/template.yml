@@ -107,8 +107,8 @@ Resources:
     # Properties:
       # GroupId: !Ref publicsg2
       # IpProtocol: tcp
-      # FromPort: 22
-      # ToPort: 22
+      # FromPort: 44
+      # ToPort: 44
       # CidrIp: 97.65.109.131/32
       # Description: Seattle-22
     # # QA Security group Outbound Rules
