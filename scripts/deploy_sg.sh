@@ -53,30 +53,27 @@ fi
 # fi
 
 
-#regex="^environment\/([0-9a-z]*)"
-#if [[ $CIRCLE_BRANCH =~ $regex ]]; then
-#    env="${BASH_REMATCH[1]}"
-#    echo "Will attempt sg $env environment deployment."
-#else
-#    echo "Failed regex match '$regex'. Exiting."
-#    exit 1
-#fi       
+regex="^environment\/([0-9a-z]*)"
+if [[ $CIRCLE_BRANCH =~ $regex ]]; then
+    env="${BASH_REMATCH[1]}"
+    echo "Will attempt beanstalk $env environment deployment."
+else
+    echo "Failed regex match '$regex'. Exiting."
+    exit 1
+fi       
 
-if [[ $CIRCLE_BRANCH == "test" ]]; then
-    
-    # echo "On  branch. Creating  resources"
-	set -exo pipefail
-	cfn-lint --ignore-checks W1020 W2001 W8001 -t $TEMPLATE
-	yamllint -d "{extends: relaxed, rules: {line-length: {max: 150}}}" $TEMPLATE
 
-	$DOCKER_CMD_PREFIX digops-stacks change-set $STACK_NAME $TEMPLATE \
-      		--environment test \
-      		--region $REGION \
-      		--customer $CUSTOMER \
-      		--purpose $PURPOSE
-	$DOCKER_CMD_PREFIX digops-stacks execute $STACK_NAME \
-      		--environment test \
-      		--region $REGION
-   exit 0		
- fi
+set -exo pipefail
+cfn-lint --ignore-checks W1020 W2001 W8001 -t $TEMPLATE
+yamllint -d "{extends: relaxed, rules: {line-length: {max: 150}}}" $TEMPLATE
 
+$DOCKER_CMD_PREFIX digops-stacks change-set $STACK_NAME $TEMPLATE \
+      --environment $env \
+      --region $REGION \
+      --customer $CUSTOMER \
+      --purpose $PURPOSE
+$DOCKER_CMD_PREFIX digops-stacks execute $STACK_NAME \
+      --environment $env \
+      --region $REGION
+
+exit 0
