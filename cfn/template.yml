@@ -65,7 +65,7 @@ Resources:
     Properties:
       GroupId: !Ref publicsg1
       IpProtocol: tcp
-      FromPort: 443 
+      FromPort: 443
       ToPort: 443
       CidrIp: 97.65.109.131/32
       Description: Seattle-3389
