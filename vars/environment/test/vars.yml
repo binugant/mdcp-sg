@@ -1,5 +1,5 @@
 #Environment: test
 VpcId: vpc-0afb50cec0eafbac4
-PublicSGName1: qa-mdcptest-public-sg
-PrivateSGName1: qa-mdcptest-private-sg 
+PublicSGName1: qa-mdcptest1-public-sg
+PrivateSGName1: qa-mdcptest1-private-sg 
 
