@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  deploy_sg_test:
+  deploy_env:
     docker:
       - image: meredithdigops/digops-stacks:latest
     steps:
@@ -13,18 +13,18 @@ jobs:
           name: Create SG Group
           no_output_timeout: 45m
           command: './scripts/deploy_sg.sh'
-  deploy_sg_prod:
-    docker:
-      - image: meredithdigops/digops-stacks:latest
-    steps:
-      - checkout
-      - run:
-         name: Change Directory
-         command: 'chmod 766 -R ./'
-      - run:
-          name: Create SG Group
-          no_output_timeout: 45m
-          command: './scripts/deploy_sg.sh'       
+  # deploy_sg_prod:
+    # docker:
+      # - image: meredithdigops/digops-stacks:latest
+    # steps:
+      # - checkout
+      # - run:
+         # name: Change Directory
+         # command: 'chmod 766 -R ./'
+      # - run:
+          # name: Create SG Group
+          # no_output_timeout: 45m
+          # command: './scripts/deploy_sg.sh'       
   # deploy_env:
     # docker:
       # - image: meredithdigops/digops-stacks:latest
@@ -53,11 +53,11 @@ workflows:
   version: 2
   build:
     jobs:
-     - deploy_sg_test:
+     - deploy_env:
           filters:
             branches:
-              only: environment/test
-     - deploy_sg_prod:
-          filters:
-            branches:
-              only: /environment/prod
+              only: /environment\/.*/
+     # - deploy_sg_prod:
+          # filters:
+            # branches:
+              # only: /environment/prod
