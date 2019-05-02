@@ -1,4 +1,5 @@
 Environment: prod
 VpcId: vpc-0afb50cec0eafbac4
-PublicSGName1: prod-mdcpaa-public-sg
-PrivateSGName1: prod-mdcpaa-private-sg
+PublicSGName1: prod-mdcpprod-public-sg
+PrivateSGName1: prod-mdcpprod-private-sg
+
